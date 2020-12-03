@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+use League\CommonMark\CommonMarkConverter;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +22,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'bio',
+        'photo',
+        'type',
     ];
+
+    public static function getBodyAttribute($value) {
+        $converter = new CommonMarkConverter([
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false
+        ]);
+        return $converter->convertToHtml($value);
+    }
+
+   // protected $dispatchesEvents = [
+    //    'saved' => \App\Events\UserEvent::class
+   // ];
 
     /**
      * The attributes that should be hidden for arrays.

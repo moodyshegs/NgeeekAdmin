@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class TodoController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(User::all());
     }
 
     /**
@@ -35,7 +36,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-      Todo::create($request->all());
+      User::create($request->all());
+    }
+    
+    public function getUser($id) {
+        return response()->json(User::find($id));
     }
 
     /**
