@@ -80,7 +80,6 @@ return [
             'prefix'   => '',
             'schema'   => 'public',
         ),
-        ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
