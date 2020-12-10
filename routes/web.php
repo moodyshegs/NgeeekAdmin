@@ -22,4 +22,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('invoice', function(){
+    return view('invoice');
+});
+
 Route::get('/{any}', 'SPAController@index')->where('any', '.*');

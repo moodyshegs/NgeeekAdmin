@@ -10,6 +10,9 @@ window.Vue = require('vue');
 import moment from 'moment';
 import { Form, HasError, AlertError } from 'vform'
 
+import Gate from './Gate';
+Vue.prototype.$gate = new Gate(window.user);
+
 
 //sweet alert
 import Swal from 'sweetalert2'
@@ -29,6 +32,8 @@ window.Form = Form;
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
+
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 
 import Vue from 'vue'
@@ -56,7 +61,9 @@ const options = {
 let routes = [
      { path: '/dashboard', component: require('./components/Dashboard.vue').default},
      { path: '/profile', component: require('./components/Profile.vue').default},
-     { path: '/users', component: require('./components/Users.vue').default}
+     { path: '/users', component: require('./components/Users.vue').default},
+     { path: '/home', component: require('./components/Todo-Component.vue').default},
+     { path: '*', component: require('./components/Notfound.vue').default}
     ]
 
     const router = new VueRouter({
@@ -73,6 +80,8 @@ let routes = [
     });
 
     window.Fire = new Vue();
+
+    
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -85,7 +94,10 @@ let routes = [
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('todo-component', require('./components/Todo-Component.vue').default);
-
+Vue.component(
+  'not-found',
+  require('./components/Notfound.vue').default
+);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -94,6 +106,18 @@ Vue.component('todo-component', require('./components/Todo-Component.vue').defau
 
 const app = new Vue({
     el: '#app',
-    router 
+    router,
+    data:{
+      search:' '
+    },
+    methods:{
+      searchit: _.debounce(() => {
+        Fire.$emit('searching');
+      },1000),
+
+      printme() {
+        window.print();
+      }
+    }
 }).$mount('#app')
 

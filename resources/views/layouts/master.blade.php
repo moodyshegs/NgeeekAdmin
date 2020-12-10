@@ -28,16 +28,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" @keyup="searchit" v-model="search" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button class="btn btn-navbar" @click="searchit">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
-    </form>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="http://localhost:8000/" class="brand-link">
       <img src="./img/hyperion-managed-services-admin.png" alt="NgeeekAdmin Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Ngeeek Admin</span>
@@ -63,7 +63,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="./img/pngkey.com-airplane-icon-vector-png-3676905.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}
+          <p>{{Auth::user()->type}}</p>
+        </a>
         </div>
       </div>
 
@@ -81,6 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </p>
                 </router-link>
             </li>
+            @can('isAdmin')
             <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-cog green"></i>
@@ -98,14 +101,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          
           <li class="nav-item">
-            <router-link to="profile" class="nav-link">
-              <i class="nav-icon fas fa-user orange"></i>
+            <router-link to="/developer" class="nav-link">
+              <i class="nav-icon fas fa-cogs"></i>
               <p>
-                Profile
+                Developer
               </p>
             </router-link>
-        </li>
+        </li> 
+        @endcan
+        <li class="nav-item">
+          <router-link to="profile" class="nav-link">
+            <i class="nav-icon fas fa-user orange"></i>
+            <p>
+              Profile
+            </p>
+          </router-link>
+      </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -138,9 +151,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <vue-progress-bar></vue-progress-bar>
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content -->
   </div>
-
+  
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- To the right -->
@@ -153,12 +165,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
+@auth
+   <script>
+    window.user = @json(auth()->user())
+   </script>
+@endauth
+
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="/js/app.js"></script>
 </body>
