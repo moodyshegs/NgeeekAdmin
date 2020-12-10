@@ -26,7 +26,6 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/fonts/vendor/@fortawesome/fontawesome-free') }}" rel="stylesheet">
     <link href="{{ asset('css/swiper.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css')}}" rel="stylesheet">
@@ -57,7 +56,7 @@
                     <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Tivo</a> -->
         
                     <!-- Image Logo -->
-                    <a class="navbar-brand logo-image" href="http://localhost:8000/"><img src="images/capug.PNG" alt="NGEEEKADMIN" ></a> 
+                    <a class="navbar-brand logo-image" href="/"><img src="images/capug.PNG" alt="NGEEEKADMIN" ></a> 
                     
                     <!-- Mobile Menu Toggle Button -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
